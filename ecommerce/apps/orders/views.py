@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from ecommerce.apps.catalog.models import Product
 from ecommerce.apps.orders.models import Order, OrderItem
@@ -19,6 +19,7 @@ def add_to_cart(request):
 
     cart.add(product=product, qty=quantity)
     return JsonResponse({"added": True, "total_items": cart.__len__()})
+    # return redirect("catalog:store_home")
 
 def delete_from_cart(request):
     cart = Cart(request)
@@ -40,6 +41,11 @@ def process_order(request):
                 city=order_data.get('city'),
                 address=order_data.get('address'),
                 phone=order_data.get('phone'),
+                payment12=order_data.get('payment12'),
+                card_payment=order_data.get('card_payment'),
+                card_number=order_data.get('card_number'),
+                card_date=order_data.get('card_date'),
+                card_cvv=order_data.get('card_cvv'),
                 total=cart.get_total(),
             )
 

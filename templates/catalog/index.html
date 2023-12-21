@@ -3,28 +3,55 @@
 {% block title %}Басты бет{% endblock %}
 
 {% block content %}
-     <div class="container mx-auto">
-          {% if messages %}
-        <div class="alert alert-primary shadow-lg">
-          <div>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current flex-shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            <span>{% for message in messages %}
-                        {{ message }}
-                    {% endfor %}</span>
-          </div>
+    <main class="main">
+        <div class="container">
+            {% if messages %}
+            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-     </div>
-    <div class="hero bg-base-100">
-        <div class="hero-content flex-col lg:flex-row">
-          <img src="{% static './images/alternate.jpg' %}" class="max-w-sm rounded-lg shadow-2xl mr-10" />
-          <div>
-            <h1 class="text-5xl font-bold">Интернет-дәріхана apteka.kz</h1>
-            <p class="py-6" style="text-align: justify;">
-                Дәрі-дәрмектерге, медициналық мақсаттағы бұйымдарға, балаларға, аналарға, косметикаға және өмірді жеңілдететін заттарға Онлайн тапсырыс беру.
-            </p>
-            <a href="{% url "catalog:store_home" %}" class="btn btn-primary">Тауарларды қарау</a>
-          </div>
-        </div>
-    </div>
+        <section class="home-block">
+            <div class="container">
+                <div class="relative-top-50">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="relative-top-100">
+                                <h1 class="home__title">Сізді керемет күтеді ✨</h1>
+                                <div class="home__description">Себетіңізді керемет сыйлықтармен apple.store дүкенінде толтырыңыз. Apple.store интернет дүкені <i class="fa-brands fa-apple"></i> Apple компаниясының Қазақстандағы 🇰🇿 ресми және аккредитациясы бар дүкендердің бірі болып саналады.</div>
+                                <a href="{% url 'catalog:homePage' %}" class="btn btn-dark btn-lg">Өнімдер</a>
+                                <a href="#categories" class="btn btn-outline-dark btn-lg">Категориялар</a>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="{% static './images/home.jpeg' %}" class="img-container" alt="Home">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="categories-block" id="categories">
+            <div class="container">
+                <h2 class="primary-title">Категориялар</h2>
+                <div class="row">
+                    <!-- dynamic -->
+                    {% for category in categories %}
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ category.get_absolute_url }}" class="card-link">
+                            <div class="card border-0 shadow-lg">
+                                <img src="{{ category.image.url }}" class="card-img" alt="{{ category.name }}">
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ category.name }}</h3>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock %}

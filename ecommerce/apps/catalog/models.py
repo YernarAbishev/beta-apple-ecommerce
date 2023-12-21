@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     name = models.CharField(max_length=255, db_index=True)
+    image = models.ImageField(upload_to='images/', default="")
     slug = models.SlugField(max_length=255, unique=True)
 
     class Meta:
@@ -30,8 +31,8 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     class Meta:
-        verbose_name = 'Тауар'
-        verbose_name_plural = 'Тауарлар'
+        verbose_name = 'Өнім'
+        verbose_name_plural = 'Өнімдер'
         ordering = ('-created',)
 
     def get_absolute_url(self):

@@ -3,7 +3,10 @@ from .models import Product, Category
 from django.db.models import Q  # New
 
 def homePage(request):
-    return render(request, "catalog/index.html")
+    categories = Category.objects.all()
+    return render(request, "catalog/index.html", {
+        'categories': categories
+    })
 
 def get_all_products(request):
     categories = Category.objects.all()
@@ -31,3 +34,7 @@ def get_all_products_by_category(request, category_slug=None):
         category__in=[category]
     )
     return render(request, "catalog/category.html", {"category": category, "products": products})
+
+
+def successPage(request):
+    return render(request, "./catalog/success.html")

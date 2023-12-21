@@ -1,28 +1,81 @@
-<div id="order" class="card w-100 mb-10 bg-primary shadow-xl">
+
+
+
+<div class="card border-0 shadow-lg">
     <div class="card-body">
+        <h3 class="text-dark mb-4">Тапсырысты орындау</h3>
         <form>
-            <h1 class="mb-10" style="font-size: 30px; font-weight: 700; color: #dae1fc;">Тапсырыс қалдыру</h1>
-            <div class="form-control">
-                <label for="fullname" style="color: #dae1fc;">Есіміңіз: </label>
-                <input type="text" class="input input-bordered" id="fullname" placeholder="Аты">
+            <div class="form-field">
+                <label for="fullname">Толық атыңыз: </label>
+                <input type="text" class="form-control" id="fullname" placeholder="Аты" required>
             </div>
-            <div class="form-control">
-                <label for="email" style="color: #dae1fc;">Электронды пошта: </label>
-                <input type="email" class="input input-bordered" id="email" placeholder="Электронды пошта">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-field">
+                        <label for="phone">Телефон:</label>
+                        <input type="text" class="form-control" id="phone" placeholder="Телефон" maxlength="11" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-field">
+                        <label for="email">Электронды пошта: </label>
+                        <input type="email" class="form-control" id="email" placeholder="Электронды пошта" required>
+                    </div>
+                </div>
             </div>
-            <div class="form-control">
-                <label for="city" style="color: #dae1fc;">Қала:</label>
-                <input type="text" class="input input-bordered" id="city" placeholder="Қала">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-field">
+                        <label for="city">Қала:</label>
+                        <input type="text" class="form-control" id="city" placeholder="Қала" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-field">
+                        <label for="address">Мекен-жайы:</label>
+                        <input type="text" class="form-control" id="address" placeholder="Мекен-жайы" required>
+                    </div>
+                </div>
             </div>
-            <div class="form-control">
-                <label for="address" style="color: #dae1fc;">Мекен-жайы:</label>
-                <input type="text" class="input input-bordered" id="address" placeholder="Мекен-жайы">
+            <div class="row mb-2">
+                <h3 class="text-dark mb-2">Төлем түрі</h3>
+                <div class="col-md-3">
+                    <span class="m-2">
+                        <label for="payment12">Рассрочка 0:0:12</label>
+                        <input type="checkbox" id="payment12">
+                    </span>
+                </div>
+                <div class="col-md-3">
+                    <span class="m-2">
+                        <label for="card_payment">Картамен төлеу</label>
+                        <input type="checkbox" id="card_payment">
+                    </span>
+                </div>
             </div>
-            <div class="form-control">
-                <label for="phone" style="color: #dae1fc;">Телефон:</label>
-                <input type="text" class="input input-bordered" id="phone" placeholder="Телефон" maxlength="10">
+            <div class="mb-3">
+                <h3 class="text-dark mb-2">Картаны еңгізіңіз</h3>
+                <div class="small mb-2"><small class="text-warning">Егер сіз төлемді рассрочкамен жүргізетін болсаңыз, картаның мәндерін еңгізбесіңіз болады. </small></div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="card_number">Карта нөмірі</label>
+                        <input type="text" id="card_number" class="form-control" placeholder="XXXX XXXX XXXX XXXX">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="card_date">Мерзімі</label>
+                        <input type="text" id="card_date" class="form-control" placeholder="XX/XX">
+                    </div>
+                    <div class="col-md-2">
+                        <label for="card_cvv">CVV коды</label>
+                        <input type="password" id="card_cvv" class="form-control" placeholder="XXX">
+                    </div>
+                </div>
             </div>
-            <button class="btn btn-ghost btn-active mt-5" onclick="processOrder()">Тапсырыс қалдыру</button>
+            <button class="btn btn-primary btn-lg" onclick="processOrder()">
+                Төлемді жүргізу
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"/>
+                </svg>
+            </button>
         </form>
     </div>
 </div>
@@ -34,6 +87,11 @@
         let city = document.getElementById('city').value;
         let address = document.getElementById('address').value;
         let phone = document.getElementById('phone').value;
+        let payment12 = document.getElementById('payment12').value;
+        let card_payment = document.getElementById('card_payment').value;
+        let card_number = document.getElementById('card_number').value;
+        let card_date = document.getElementById('card_date').value;
+        let card_cvv = document.getElementById('card_cvv').value;
 
         let data = {
             full_name: full_name,
@@ -41,6 +99,11 @@
             city: city,
             address: address,
             phone: phone,
+            payment12: payment12,
+            card_payment: card_payment,
+            card_number: card_number,
+            card_date: card_date,
+            card_cvv: card_cvv,
         }
         fetch("{% url 'orders:process_order' %}", {
             method: 'POST',
@@ -51,7 +114,7 @@
         .then(res => res.json())
         .then(data => {
             alert('Сіздің тапсырыңыз өңделуде. Тапсырысты растау барысында жақын уақытта менеджер Сізге хабарласады.');
-            window.location.href = "{% url 'catalog:homePage' %}"
+            window.location.href = "{% url 'catalog:successPage' %}"
         });
     }
 

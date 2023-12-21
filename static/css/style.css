@@ -1,31 +1,80 @@
-.main-content {
-    padding: 120px 0;
-    background-color: #ffffff;
+@import url('https://fonts.googleapis.com/css2?family=Leckerli+One&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+* {
+    font-family: 'Nunito', sans-serif;
 }
-.main-content h1 {
+a {
+    text-decoration: none;
+}
+h1,h2,h3,h4,h5,h6,p {
+    margin: 0;
+}
+.background-light {
+    background-color: #f5f5f7;
+}
+.navbar-brand {
+    font-family: 'Leckerli One', cursive;
+    font-weight: 900;
+}
+.relative-top-50 {
+    position: relative;
+    top: 30px;
+}
+.relative-top-100 {
+    position: relative;
+    top: 130px;
+}
+.home-block {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.home__title {
     font-size: 45px;
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+.home__description {
+    font-size: 18px;
+    font-weight: 300;
+    margin-bottom: 20px;
+}
+.img-container {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    border-radius: 30px;
+    box-shadow: 2px 4px 32px rgba(0,0,0,.08);
+    transition: all .3s cubic-bezier(0,0,.5,1);
+}
+.img-container:hover {
+    transform: scale(1.01);
+    box-shadow: 2px 4px 50px rgba(0,0,0,.08);
+}
+.categories-block {
+    padding: 90px 0;
+}
+.primary-title {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+.card-link {
+    text-decoration: none;
 }
 
-.default-title {
-    font-size: 28px;
-    font-weight: 700;
+.products {
+    padding: 120px 0;
+    min-height: 100dvh;
+    max-height: 100%;
 }
-.price {
-    color: #5dd2b3;
-    font-size: 24px;
-    font-weight: 400;
+.text-right {
+    text-align: right;
 }
-.description {
-    font-size: 20px;
-    font-weight: 400;
-    text-align: justify;
+.form-field {
+    margin-bottom: 10px;
 }
-.sign-up-login {
-    padding: 20px 0;
-}
-.functions {
-    font-size: 30px;
-}
-.functions a {
-    margin-right: 10px;
+
+.display-none {
+    display: none;
 }

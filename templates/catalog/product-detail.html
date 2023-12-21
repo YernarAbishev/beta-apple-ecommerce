@@ -1,62 +1,83 @@
 {% extends "../base.html" %}
 {% load static %}
-{% block title %}Тауарлар{% endblock %}
+{% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
 {% if user.is_authenticated %}
-    <div class="products">
-        <div class="container mx-auto">
-            <div class="text-sm breadcrumbs mb-10">
-                <ul>
-                  <li><a href="{% url "catalog:store_home" %}">Артқа</a></li>
-                  <li>{{ product.name }}</li>
-                </ul>
-              </div>
-            <div class="grid grid-cols-3 gap-4">
-                <div class="mr-10">
-                    <div class="card bg-base-100 shadow-xl">
-                        <div class="card-body">
-                            <figure><img src="{{ product.image.url }}" alt="{{ product.name }}" /></figure>
-
-                        </div>
+<main class="main">
+    <section class="products">
+        <div class="container">
+            <a href="{% url 'catalog:store_home' %}" class="btn btn-outline-dark mb-4">&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-lg">
+                        <img src="{{ product.image.url }}" alt="" class="card-img object-fit-cover-prod">
                     </div>
                 </div>
-                <div class="col-span-2">
-                    <div class="card bg-base-100 shadow-xl">
+                <div class="col-md-8">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-4 ">
+                            <h2>{{ product.name }}</h2>
+                            <h3>Бағасы: {{ product.price }} &#8376;</h3>
+                            <div class="prod-desc mb-2">Сипаттамасы: {{ product.description }}</div>
+                            <div class="mb-2">
+                                {% if product.in_stock %}
+                                <span class="badge bg-primary mb-2">Сатылымда бар</span>
+                                {% else %}
+                                <span class="badge bg-danger mb-2">Сатылымда жоқ</span>
+                                {% endif %}
+                            </div>
+                            <h3>Төлем</h3>
+                            <div class="badge-group mb-2">
+                                <span class="badge rounded-pill bg-danger">Kaspi 0:0:12</span>
+                                <span class="badge rounded-pill bg-success">Halyq 0:0:12</span>
+                                <span class="badge rounded-pill bg-info">Forte 0:0:12</span>
+                                <span class="badge rounded-pill bg-warning">Jusan 0:0:12</span>
+                            </div>
+                            <h3>Тегін жеткізу</h3>
+                            <div class="desc">Бүкіл Қазақстан бойынша тегін жеткізу</div>
+                        </div>
+                        <div class="border-bottom"></div>
                         <div class="card-body">
-                            <h2 class="default-title">{{ product.name }}</h2>
-                            <h3 class="text-primary" style="font-size: 20px;">Бағасы: {{ product.price }} теңге</h3>
-                            <p class="description mb-5">Сипаттамасы: {{ product.description }}</p>
-                            {% if product.in_stock %}
-                            <div class="badge badge-primary mb-10">Сатылымда бар</div>
-                            {% else %}
-                            <div class="badge badge-danger mb-10">Сатылымда жоқ</div>
-                            {% endif %}
-                            <label for="select-qty-{{product.id}}">Дана</label>
-                            <select id="select-qty-{{product.id}}" class="select select-primary w-100">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <button onclick="addToCart('{{product.id}}')" class="btn btn-primary">Себетке қосу</button>
+                            <button onclick="addToCart('{{product.id}}')" class="btn btn-primary btn-lg"><i class="fa-solid fa-cart-plus"></i> Себетке қосу</button>
+                            <div class="display-none">
+                                <label for="select-qty-{{product.id}}">Дана</label>
+                                <select id="select-qty-{{product.id}}" class="select select-primary w-100">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-{% else %}
-<div class="container mx-auto">
-    <div class="alert alert-error shadow-lg">
-  <div>
-    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-    <span>Тауарларды қарау үшін және оларға тапсырыс беру үшін, жүйеге тіркеліңіз немесе кіріңіз.</span>
-  </div>
-</div>
-</div>
+    </section>
+    {% else %}
+    <section class="products">
+        <div class="modal modal-sheet position-static d-block bg-body-secondary p-4 py-md-5" tabindex="-1" role="dialog" id="modalChoice">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content rounded-3 shadow">
+                <div class="modal-body p-4 text-center">
+                  <h5 class="mb-0">Ескерту</h5>
+                  <p class="mb-0">Тауарды көру үшін немесе төлемдерді жүргізу үшін аккаунт арқылы кіріңіз. Егер сізде аккаунт болмаса тіркеліңіз</p>
+                </div>
+                <div class="modal-footer flex-nowrap p-0">
+                  <a href="{% url 'users:signUp' %}" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end"><strong>Тіркелу</strong></button>
+                  <a href="{% url 'users:loginPage' %}" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0">Кіру</button>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endif %}
+
+
+
 <script>
     const addToCart = (productId) => {
         let selectQuantity = document.getElementById('select-qty-' + productId);
